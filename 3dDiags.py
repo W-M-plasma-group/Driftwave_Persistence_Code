@@ -1,3 +1,8 @@
+#This code is for the calculation of persistence, split the persistence by betti numbers, and then use subplots to give an idea of the overall persistence,
+#as well as the persistence of specific betti numbers.
+#There is some functionality to store the betti persistences into the Xarray .nc file that all the code uses, but that was more storage intensive for the data
+#so far, and calculating persitence again was computationally cheap in comparison.
+
 import matplotlib.pyplot as plt
 import xbout as xb
 from xbout import open_boutdataset
@@ -73,11 +78,9 @@ b0,y1,b1,y2,b2,y3 =get_betti(p)
 
 
 print("Finished Persistence Calculations")
-#Setting Up and Building Figure
+#Setting Up and Building Figure/ plots and subplots
 fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(20, 10))#, sharex=True, sharey=True)
 plt.suptitle(f"Diagonals Subtracted out, 3D test",fontsize=30)
-
-
 
 ax1=axes[0,0]
 ax1.plot(b0,y1,"gx")
