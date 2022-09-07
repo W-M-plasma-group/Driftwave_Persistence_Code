@@ -108,6 +108,6 @@ ax3.get_shared_x_axes().join(ax3, ax4)
 ax4.get_shared_x_axes().join(ax4, ax2)
 
 #Saving figure
-fig.savefig(f"/home/jfkiewel/python/3dSpatial/plots/{adin}/3d_Diags_{tot}.png")
+fig.savefig(f"<$OUTPUT_PATH>.png")
 plt.close()
 print("Job Completed") 
