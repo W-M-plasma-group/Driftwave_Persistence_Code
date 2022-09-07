@@ -33,6 +33,7 @@ import os
 #   return xr.DataArray(data=db,dims=['time','x','z'])
 
 #Inputs determine output path and data that will be saved in info array
+#These variables were also used to create the path that the output files would be placed in for organizational purposes
 nout=int(input("nout: "))
 alpha=input("Alpha: ")
 kappa=input("Kappa: ")
