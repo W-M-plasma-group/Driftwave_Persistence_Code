@@ -1,4 +1,6 @@
-#The purpose of this code is to plot the number of features over time. This data should really be saved to 
+#The purpose of this code is to plot the number of features over time. This data served originally as a sort of stability indicator.
+#Turns out to be a pretty poor indicator, but the code still has a use, as the number of features is important because number of features
+#can sometimes be an important indicator of phase change, or could also obfuscate the structures we really want to see.
 
 import matplotlib.pyplot as plt
 import numpy as np
