@@ -1,6 +1,7 @@
+#This code was suggested by Sage as one method of removing the issue of having too many features clouding the structures we want to see. I think...
+#It is useful in some sense, but does not have significantly more information than the normal persistence graph. Kept it because it could still have uses.
+
 import matplotlib.pyplot as plt
-# import xbout as xb
-# from xbout import open_boutdataset
 import numpy as np
 import gudhi as gd
 from matplotlib import pyplot
@@ -37,7 +38,7 @@ adin=input("Alpha: ")
 # ser=input("State: ")
 
 #Open Data
-db=xr.open_dataset(f"/home/jfkiewel/python/3dSpatial/Saved_NC_Files/{adin}_{tot}.nc")
+db=xr.open_dataset(f"<$SIMULATION_OUTPUTS_PATH>.nc")
 filt_values=normalize(db[test].values[tot,:,:,:])
 cc = gd.PeriodicCubicalComplex(top_dimensional_cells = filt_values, periodic_dimensions=[False,True,True])
 print("You have been complexed")
@@ -47,8 +48,11 @@ p=cc.persistence()
 #Get the three different persistent holes in 3d Space
 b0,y1,b1,y2,b2,y3 =get_betti(p)
 
+#Method to find the midlife for the persistence points
 def midlife(b,y):
   return (b+y)/2
+
+#There has to be a better way of removing infinite persistence points... This is how I did it anyway...
 t1=[]
 for i in range(len(b0)):
   if y1[i] != np.inf:
@@ -67,12 +71,10 @@ print("Finished Persistence Calculations")
 #Setting Up and Building Figure
 fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(20, 10))
 plt.suptitle(f"Midlife Histograms, alpha={adin}, step={tot}",fontsize=40)
-
 ax1=axes[0,0]
 ax1.plot(b0,y1,"gx")
 ax1.plot(b1,y2,"rx")
 ax1.plot(b2,y3,"bx")
-
 ax2=axes[0,1]
 ax2.set_title("Betti 0")
 ax2.hist(t1)
@@ -85,7 +87,11 @@ ax4.hist(t3)
 ax2.get_shared_x_axes().join(ax2, ax3)
 ax3.get_shared_x_axes().join(ax3, ax4)
 ax4.get_shared_x_axes().join(ax4, ax2)
+
+
 #Saving figure
-fig.savefig(f"/home/jfkiewel/python/3dSpatial/plots/{adin}/Midlife_{tot}.png")
+#Again, decided that saving midlife datapoints was more storage intensive than the calculations were computationally intensive, and only saved output
+#graphs rather than outputs themselves, (although I might add a commented out method that does save the midlife data)
+fig.savefig(f"<$OUTPUT_PATH>.png")
 plt.close()
 print("Job Completed")
