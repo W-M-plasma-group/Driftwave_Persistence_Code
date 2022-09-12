@@ -1,3 +1,5 @@
+#Old stability measurement. Considered worse than, and far more compuationally expensive than the RMS calculations we see later.
+
 import matplotlib.pyplot as plt
 import xbout as xb
 from xbout import open_boutdataset
@@ -12,7 +14,7 @@ adi=input("alpha: ")
 ste=input("Steps: ")
 reg=input("Region: ")
 plotte=[];x=[]
-db= xr.open_dataset(f"/home/jfkiewel/python/Saved_NC_Files/{adi}_{ste}_{reg}.nc")
+db= xr.open_dataset(f"<$SIULATION_OUTPUT_DATA>.nc")
 steps=int(db['info'].values[2])
 alpha=db['info'].values[0]
 
@@ -41,5 +43,5 @@ for l in range(5,steps):
 	
 fig=plt.figure()
 plt.plot(x,plotte)
-fig.savefig(f"plots/{alpha}/Bottleneck.png")
+fig.savefig(f"<$OUTPUT_PLOTS>.png")
 plt.close()
