@@ -1,5 +1,6 @@
 #Failed experiment, hoped that I would get a clearer picture that allows for seeing the shape, rather than number of features, which should be possible
 #with the right density map, however, I never did, midlife is a better visualization, and I never looked at it again...
+#Also, this code works with a stack of 2D in time for 3D data structures.
 
 
 import matplotlib.pyplot as plt
