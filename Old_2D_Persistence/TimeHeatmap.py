@@ -1,3 +1,7 @@
+#Failed experiment, hoped that I would get a clearer picture that allows for seeing the shape, rather than number of features, which should be possible
+#with the right density map, however, I never did, midlife is a better visualization, and I never looked at it again...
+
+
 import matplotlib.pyplot as plt
 import xbout as xb
 from xbout import open_boutdataset
@@ -8,6 +12,7 @@ import xarray as xr
 import netCDF4 as cdf
 import seaborn as sns
 
+#Retrieve Betti Numbers
 def get_betti(p):
 	b0=[];y1=[];b1=[];y2=[];b2=[];y3=[]
 	for i in range(len(p)):
@@ -30,7 +35,7 @@ adin=input("Alpha: ")
 ser=input("State: ")
 
 #Open Data
-db=xr.open_dataset(f"/home/jfkiewel/python/Saved_NC_Files/{adin}_{ts}_{ser}.nc")
+db=xr.open_dataset(f"<$SIMULATION_OUTPUT_PATH>.nc")
 steps=int(db["info"].values[2])
 alpha=db["info"].values[0]
 filt_values=db[test].values[steps-stepsTested:steps,:,:]
@@ -77,6 +82,6 @@ sns.kdeplot(ax=ax4,x = b2, y = y3, shade = True, cmap = "PuBu", bw_method =.1)
 # plt.fill_between(lims,lims,y2=lims[0],color='#d3d3d3')
 
 #Saving figure
-fig.savefig(f"plots/{adin}/TimeHeatMap_{test}.png")
+fig.savefig(f"<$OUTPUT_PLOT>.png")
 plt.close()
 print("Job Completed")
