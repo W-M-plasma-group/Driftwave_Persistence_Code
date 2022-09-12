@@ -1,3 +1,7 @@
+#This code is the origin to pushing to 3 dimensions- The reasons why we decided to stop this type of 3D structures: 
+# It was very timestep parameter sensitive, rather than demonstrating real effects or structures
+# Therefore we went to actual 3D simulations
+
 import matplotlib.pyplot as plt
 import xbout as xb
 from xbout import open_boutdataset
@@ -9,6 +13,7 @@ import netCDF4 as cdf
 import scipy as sp
 import os
 
+#Retrieve Betti Numbers
 def get_betti(p):
   b0=[];y1=[];b1=[];y2=[];b2=[];y3=[]
   for i in range(len(p)):
@@ -32,7 +37,7 @@ adin=input("Alpha: ")
 ser=input("State: ")
 
 #Open Data
-db=xr.open_dataset(f"/home/jfkiewel/python/Saved_NC_Files/{adin}_{tor}_{ser}.nc")
+db=xr.open_dataset(f"<$SIMULATION_DATASET>.nc")
 steps=int(db["info"].values[2])
 alpha=db["info"].values[0]
 filt_values=db[test].values[steps-stepsTested:steps,:,:]
@@ -41,14 +46,13 @@ print("You have been complexed")
 cc.compute_persistence()
 p=cc.persistence()
 
-#Get the three different persistent holes in 3d Space
+#Get the three different persistent holes in 3d Space (commented out structure to save data- again, space is issue more than computational expense also, it is broken)
 b0,y1,b1,y2,b2,y3 =get_betti(p)
 # dat1=(np.vstack((b0,y1))).T
 # dat2=(np.vstack((b1,y2))).T
 # dat3=(np.vstack((b2,y3)))
 # db[f"3d_pers_{test}"]=(("Birth","Death"),dat3)
 # p=None
-# db.to_netcdf(path=f"/home/jfkiewel/python/Saved_NC_Files/{adin}_{tot}_{ser}_temp.nc")
 # db.close()
 
 print("Finished Persistence Calculations")
@@ -64,7 +68,6 @@ plt.plot(b2,y3,'bx')
 plt.fill_between(lims,lims,y2=lims[0],color='#d3d3d3')
 
 #Saving figure
-fig.savefig(f"plots/{adin}/TimePersistencePlot_{test}_{stepsTested}.png")
+fig.savefig(f"<$OUTPUT_PLOTS>.png")
 plt.close()
-os.rename(f"/home/jfkiewel/python/Saved_NC_Files/{adin}_{tot}_{ser}_temp.nc",f"/home/jfkiewel/python/Saved_NC_Files/{adin}_{tot}_{ser}.nc")
 print("Job Completed")
