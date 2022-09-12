@@ -1,3 +1,5 @@
+#This code makes a bunch of different persistence plots for different evenly spaced time intervals through a 2D HW-simulation
+
 import matplotlib.pyplot as plt
 import xbout as xb
 from xbout import open_boutdataset
@@ -10,6 +12,7 @@ import os
 
 def plotter(s): 
   filt_values=dn[s,:,:]
+  #Should be periodic, won't check which one to update, but one of the dimensions should be periodic
   cc = gd.CubicalComplex(top_dimensional_cells = filt_values)
   cc.compute_persistence()
   p=cc.persistence()
@@ -43,14 +46,14 @@ def plotter(s):
   ax2.imshow(filt_values)
 
 #Save Figures
-  fig.savefig(f"plots/{alpha}/PersistencePlot{l}_{test}_.png")
+  fig.savefig(f"<$OUTPUT_PLOT>_{s}.png")
   plt.close()
 
 #Retrieving Data
 alpha=input("Alpha: ")
 fir=input("Phase State: ")
 ste=input("Steps: ")
-ds=xr.open_dataset(f"/home/jfkiewel/python/Saved_NC_Files/{alpha}_{ste}_{fir}.nc")
+ds=xr.open_dataset(f"<$SIMULATION_OUTPUT_DATA>.nc")
 test=input("Value Type (n,phi,vort): ")
 dn=ds[test].values[:,:,:]
 steps=len(dn[:,0,0])
