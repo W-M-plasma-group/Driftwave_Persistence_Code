@@ -46,7 +46,6 @@ ds = xb.open_boutdataset(f"<$BOUT_OUTPUT_PATH.nc>")
 #and was storage intensive, decided to just save density data
 xar = xr.Dataset({})
 xar["info"]=[alpha,kappa,nout]
-xar.to_netcdf(path=f"<$OUTPUT_PATH>.nc")
 
 #Workaround to lazy loading preventing us from updating the XArray that we want to update.
 xar["n"]=(["t","x","y","z"],ds["n"].values[:,:,:,:])
