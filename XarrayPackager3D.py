@@ -1,3 +1,6 @@
+#Basically fully useless. Will be rewritten as a batch file with more functionality for running simulations...
+
+
 #The purpose of this code is to take the output files of the BOUT++ simulation framework and save the relevant data into data that can be more easily 
 #used for calculations. This includes saving the data with relevant simulation information.
 #This has less functionality now since the 3D simulation is too large to do normalization on, and we decided to focus on electron density, and we no longer
