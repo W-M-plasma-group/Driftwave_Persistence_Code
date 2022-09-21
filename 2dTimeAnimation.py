@@ -20,32 +20,30 @@ def normalize(db):
 
 #Params
 test=input("n,phi,vort?: ")
-api=input("Alpha: ")
-step=int(input("Steps: "))
-# reg=input("Region: ")
+save_name=input("Name of output plot: ")
 
 #Pulling data for last frame (most turblent, best for setting scale)
-ds=xr.open_dataset(f"<$SIMULATION_OUTPUT_PATH>.nc")
+ds=xr.open_dataset(f"/rawdata/BOUT.dmp.nc")
 
-db=ds[test].values[:,4:64,0,:]
-db=normalize(db)
+dn=ds[test].values[:,2:len(ds["test"]["x"]),0,:]
+dn=normalize(dn)
 
-dap=db[-1,:,:]
+f1=dn[-1,:,:]
 
 #Setting first frame(important for colorbar standardization)
 Figure=plt.figure()
-plotte=plt.imshow(dap)
+plotte=plt.imshow(f1)
 plt.colorbar(plotte)
 
 #Define animationfunction to feed to the FuncAnimation method of matplotlib
 def AnimationFuncion(frame):
-  dap=db[frame,:,:]
-  plotte.set_array(dap)
+  f1=dn[frame,:,:]
+  plotte.set_array(f1)
   print(frame)
   return plotte
 
-#Animation drawn and saved
-anim=FuncAnimation(Figure,AnimationFuncion,frames=len(db[:,0,0]),interval=50)
+#Animation drawn and saved. The output video speed is determined by speed of computer- quirk of FuncAnimation
+anim=FuncAnimation(Figure,AnimationFuncion,frames=len(dn[:,0,0]),interval=50)
 FFwriter = animation.FFMpegWriter()
-anim.save(f'<$OUTPUT_PATH>.mp4')
+anim.save(f'/plots/{save_name}.mp4')
 plt.close()
