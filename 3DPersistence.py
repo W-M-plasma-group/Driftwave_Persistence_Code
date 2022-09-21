@@ -47,10 +47,11 @@ def subdiag(b,y):
 test=input("n,phi?:")
 tot=int(input("Total Steps: "))
 adin=input("Alpha: ")
+save_name=input("Name of Output plot: ")
 
 #Open Data from Packager
-db=xr.open_dataset(f"/home/jfkiewel/python/3dSpatial/Saved_NC_Files/{adin}_{tot}.nc")
-ds=db[test].values[tot,:,:,:]
+db=xr.open_dataset(f"/rawdata/BOUT.dmp.nc")
+ds=db[test].values[tot,2:2:len(ds["test"]["x"])-2,:,:]
 filt_values=normalize(ds)
 cc = gd.PeriodicCubicalComplex(top_dimensional_cells = filt_values, periodic_dimensions=[False,True,True])
 print("You have been complexed")
@@ -111,6 +112,6 @@ ax3.get_shared_x_axes().join(ax3, ax4)
 ax4.get_shared_x_axes().join(ax4, ax2)
 
 #Saving figure
-fig.savefig(f"<$OUTPUT_PATH>.png")
+fig.savefig(f"/plots/{save_name}.png")
 plt.close()
 print("Job Completed") 
