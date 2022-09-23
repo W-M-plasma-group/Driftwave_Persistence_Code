@@ -19,10 +19,11 @@ def normalize(db):
 test=input("n,phi,vort?: ")
 api=input("Alpha: ")
 step=int(input("Steps: "))
+out_name=input("Output name: ")
 # reg=input("Region: ")
 
 #Pulling data from our saved .nc file (Xarray)
-ds=xr.open_dataset(f"/home/jfkiewel/python/3dSpatial/Saved_NC_Files/{api}_{step}.nc")
+ds=xr.open_dataset(f"raw_data/BOUT.dmp.nc")
 
 db=ds[test].values[step,4:64,:,:]
 db=normalize(db)
@@ -44,5 +45,5 @@ def AnimationFuncion(frame):
 #Animation drawn and saved
 anim=FuncAnimation(Figure,AnimationFuncion,frames=len(db[0,:,0]),interval=200)
 FFwriter = animation.FFMpegWriter()
-anim.save(f'plots/{api}/animation.mp4')
+anim.save(f'plots/{out_name}_animation.mp4')
 plt.close()
