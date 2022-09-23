@@ -50,7 +50,7 @@ adin=input("Alpha: ")
 save_name=input("Name of Output plot: ")
 
 #Open Data from Packager
-db=xr.open_dataset(f"/rawdata/BOUT.dmp.nc")
+db=xr.open_dataset(f"raw_data/BOUT.dmp.nc")
 ds=db[test].values[tot,2:2:len(ds["test"]["x"])-2,:,:]
 filt_values=normalize(ds)
 cc = gd.PeriodicCubicalComplex(top_dimensional_cells = filt_values, periodic_dimensions=[False,True,True])
@@ -112,6 +112,6 @@ ax3.get_shared_x_axes().join(ax3, ax4)
 ax4.get_shared_x_axes().join(ax4, ax2)
 
 #Saving figure
-fig.savefig(f"/plots/{save_name}.png")
+fig.savefig(f"plots/{save_name}.png")
 plt.close()
 print("Job Completed") 
