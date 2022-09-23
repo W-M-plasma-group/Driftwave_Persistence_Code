@@ -23,7 +23,7 @@ test=input("n,phi,vort?: ")
 save_name=input("Name of output plot: ")
 
 #Pulling data for last frame (most turblent, best for setting scale)
-ds=xr.open_dataset(f"/rawdata/BOUT.dmp.nc")
+ds=xr.open_dataset(f"/raw_data/BOUT.dmp.nc")
 
 dn=ds[test].values[:,2:len(ds["test"]["x"])-2,0,:]
 dn=normalize(dn)
