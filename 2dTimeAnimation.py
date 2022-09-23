@@ -45,5 +45,5 @@ def AnimationFuncion(frame):
 #Animation drawn and saved. The output video speed is determined by speed of computer- quirk of FuncAnimation
 anim=FuncAnimation(Figure,AnimationFuncion,frames=len(dn[:,0,0]),interval=50)
 FFwriter = animation.FFMpegWriter()
-anim.save(f'/plots/{save_name}.mp4')
+anim.save(f'plots/{save_name}.mp4')
 plt.close()
