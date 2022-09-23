@@ -35,10 +35,11 @@ test=input("n,phi?:")
 # stepsTested=int(input("Steps to test:"))
 tot=int(input("Total Steps: "))
 adin=input("Alpha: ")
+save_name=input("Output Name: ")
 # ser=input("State: ")
 
 #Open Data
-db=xr.open_dataset(f"<$SIMULATION_OUTPUTS_PATH>.nc")
+db=xr.open_dataset(f"raw_data/BOUT.dmp.nc")
 filt_values=normalize(db[test].values[tot,:,:,:])
 cc = gd.PeriodicCubicalComplex(top_dimensional_cells = filt_values, periodic_dimensions=[False,True,True])
 print("You have been complexed")
@@ -92,6 +93,6 @@ ax4.get_shared_x_axes().join(ax4, ax2)
 #Saving figure
 #Again, decided that saving midlife datapoints was more storage intensive than the calculations were computationally intensive, and only saved output
 #graphs rather than outputs themselves, (although I might add a commented out method that does save the midlife data)
-fig.savefig(f"<$OUTPUT_PATH>.png")
+fig.savefig(f"plots/{save_name}_midlife.png")
 plt.close()
 print("Job Completed")
