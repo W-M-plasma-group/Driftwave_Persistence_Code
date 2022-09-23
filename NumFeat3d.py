@@ -22,9 +22,10 @@ test=input("n,phi,vort?: ")
 alpha=input("Alpha: ")
 every=int(input("Every _ Steps: "))
 ste=int(input("Steps: "))
+save_name=input("Output Name: ")
 
 #Pulling data for last frame (most turblent, best for setting scale)
-ds=xr.open_dataset(f"<$Saved_Data_Path>.nc")
+ds=xr.open_dataset(f"raw_data/BOUT.dmp.nc")
 db=ds[test].values[::every,:,:,:]
 db=normalize(db)
 tem=[];x=[]
@@ -46,8 +47,8 @@ for i in range(1,len(db[:,0,0,0])-1):
 #to get a better view of the studied structures, rather than number of features being the largest indication of different persistence
 #Will update if this is actually ever used in future
 xar["feat"]=(["t","f"],[x,tem])
-xar.to_netcdf(f"<$OUTPUT_PATH>_temp.nc")
-os.rename(f"<$OUTPUT_PATH>_temp.nc",f"<$OUTPUT_PATH>.nc")
+xar.to_netcdf(f"raw_data/BOUT.dmp.temp.nc")
+os.rename(f"raw_data/BOUT.dmp.temp.nc",f"raw_data/BOUT.dmp.nc")
 
 #Setting up figure
 fig=plt.figure()
@@ -55,5 +56,5 @@ plt.xlabel("Steps")
 plt.ylabel("Features")
 plt.title(f"a={alpha}, NumFeat")
 plt.plot(x,tem)
-fig.savefig(f"<$OUTPUT_PATH>.png")
+fig.savefig(f"plots/{save_name}_NumFeat.png")
 plt.close()
