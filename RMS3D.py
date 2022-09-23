@@ -17,9 +17,10 @@ def rms(db):
 test=input("n,phi,vort?: ")
 adin=input("Alpha: ")
 tot=input("Steps: ")
+save_name=input("Output Name: ")
 
 
-ds=xr.open_dataset(f"<$Simulation_Data_Xarray>.nc")
+ds=xr.open_dataset(f"raw_data/BOUT.dmp.nc")
 db=ds[test].values[:,:,:,:]
 ds=0
 
@@ -35,7 +36,7 @@ plt.xlabel("Steps")
 plt.ylabel("RMS")
 plt.title(f"RMS")
 plt.plot(x,tem)
-fig.savefig(f"<$OUTPUT_PATH>.png")
+fig.savefig(f"plots/{save_name}_RMS.png")
 plt.close()
 
 
