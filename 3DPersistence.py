@@ -52,16 +52,16 @@ save_name=input("Name of Output plot: ")
 
 #Open Data from Packager
 db=xr.open_dataset(f"raw_data/BOUT.dmp.nc")
-ds=db[test].values[tot,2:2:len(ds["test"]["x"])-2,:,:]
-tic=time.perf_counter()
+ds=db[test].values[tot,2:len(db[test]["x"])-2,:,:]
+tic=perf_counter()
 filt_values=normalize(ds)
-toc=time.perf_counter()
+toc=perf_counter()
 norm=toc-tic
-tic=time.perf_counter()
+tic=perf_counter()
 cc = gd.PeriodicCubicalComplex(top_dimensional_cells = filt_values, periodic_dimensions=[False,True,True])
 print("You have been complexed")
 cc.compute_persistence()
-toc=time.perf_counter()
+toc=perf_counter()
 pers=toc-tic
 p=cc.persistence()
 
