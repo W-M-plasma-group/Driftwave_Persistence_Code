@@ -47,7 +47,7 @@ def subdiag(b,y):
 #Params
 test=input("n,phi?:")
 tot=int(input("Total Steps: "))
-adin=input("Alpha: ")
+#adin=input("Alpha: ")
 save_name=input("Name of Output plot: ")
 
 #Open Data from Packager
@@ -66,9 +66,9 @@ pers=toc-tic
 p=cc.persistence()
 
 #Get the three different persistent holes in 3d Space
-tic=time.perf_counter()
+tic=perf_counter()
 b0,y1,b1,y2,b2,y3 =get_betti(p)
-toc=time.perf_counter()
+toc=perf_counter()
 bet=toc-tic
 
 #This code was to save persistence data to the Xarray. Because this is storage intensive, and doing the calculations repeatedly is 
