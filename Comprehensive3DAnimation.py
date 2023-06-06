@@ -83,7 +83,7 @@ if noise =="y":
 gaus=input("Gaussian Noise? = y/n: ")
 
 #Open Data from Packager
-db=xr.open_dataset(f"/home/jfkiewel/python/3dSpatial/Saved_NC_Files/{adin}_{tot}.nc")
+db=xr.open_dataset(f"raw_data/BOUT.dmp.nc")
 ds=db[test].values[tot,2+int((64%size)/2):len(db[test]["x"])-2-(int((64%size)/2)+(64%size)%2),int((16%size)/2):len(db[test]["y"])+int((16%size)/2)+(16%size)%2,int((64%size)/2):len(db[test]["z"])-(int((64%size)/2)+(64%size)%2)]#cuts it into divisible squares
 tic=perf_counter()
 filt_values=normalize(ds)
