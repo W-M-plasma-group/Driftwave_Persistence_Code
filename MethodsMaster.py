@@ -18,6 +18,8 @@ def openthedata():
   data=data[test].values[len(data[test]["t"])-1,2:len(data[test]["x"])-2,0,:]
   return data
 
+#This method pixelates data with size representing how each larger pixel is the mean of a size x size group of pixels in original
+#The output needs work, specifically for the case that the image cannot cleanly be divided by size.
 def pixelate(tempdata,size):
   if len(tempdata[:,0])%size!=0:
     tempdata=tempdata[int((len(tempdata[:,0])%size)/2):len(tempdata[:,0])-(int((len(tempdata[:,0])%size)/2)+(len(tempdata[:,0])%size)%2),:]
@@ -34,6 +36,7 @@ def pixelate(tempdata,size):
   #print(f"Pixelation Complete {size}x{size}")
   return returnable
 
+#Adds gaussian noise to the image data fed in. This is from the random package, with mean equal to pixel value, and sigma being proportional to the max of the data
 def noisegauss(tempdata,sigmamod):
   returnable=np.zeros((int(len(tempdata[:,0])),int(len(tempdata[0,:]))))
   m=((np.amax(tempdata))*0.05)*sigmamod
@@ -43,6 +46,7 @@ def noisegauss(tempdata,sigmamod):
   #print(f"Gaussian Noise Added, sigma={m}")
   return returnable
 
+#Random Poisson noise added from python random package
 def noisepoisson(tempdata):
   # returnable=np.zeros((int(len(tempdata[:,0])),int(len(tempdata[0,:]))))
   returnable=np.random.poisson(tempdata)
@@ -51,16 +55,20 @@ def noisepoisson(tempdata):
   #     returnable[i][j]=noised[i][j]
   return returnable  
 
+#Future salt and peper noise
 def noiseSP():
   return
 
+#The driving of turbulence in our Hasegawa-Wakatani physics simulations is through a background gradient. This normalizes that background out.
+#It works by taking the average of each row and subtracting it out, rather than removing the actual background gradient. This means that some major turbulence can cause individual rows to be a little rough
+#Should have no problem for persistence diagrams for the most part
 def normalize(tempdata):
   returnable=np.zeros((int(len(tempdata[:,0])),int(len(tempdata[0,:]))))
   for i in range(len(tempdata[:,0])):
     returnable[i]=tempdata[i,:]-np.mean(tempdata[i,:])
   return returnable
 
-#Define animationfunction to feed to the FuncAnimation method of matplotlib
+#3D array is visualized throuh mp4 video sweeping though 1st dimension. Colorbar is normalized to last frame to deal with time series
 def visualize(viddata):
   def AnimationFuncion(frame):
     dap=viddata[frame]
@@ -79,6 +87,7 @@ def visualize(viddata):
   anim.save(f'{output_path}.mp4')
   plt.close()
 
+#Wasserstein comparison of two different image arrays
 def wasserbetti(temppersistence):
   b=[];y=[]
   for i in range(len(temppersistence)):
