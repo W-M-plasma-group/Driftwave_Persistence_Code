@@ -101,6 +101,7 @@ def WassersteinCompare(img1,img2):
   cimg1=wasserbetti(pimg1);cimg2=wasserbetti(pimg2)
   return gdwas.wasserstein_distance(cimg2,cimg1,order=1.,internal_p=2.)
 
+#Finds the betti persistence data of 2D image data
 def get_betti_pers(p):
   b0=[];y1=[];b1=[];y2=[];b2=[];y3=[]
   for i in range(len(p)):
@@ -126,7 +127,7 @@ def persinfo(tempdata):#I need to check if we can have betti 2 etc in this, and 
   plt.fill_between(lims,lims,y2=lims[0],color='#d3d3d3')
   return fig
 
-#Converts image from pixel data to greyscale image object. Maybe this is a bad idea though? It is. Looking for alternatives
+#Converts image from pixel data to greyscale image object. Maybe this is a bad idea though? It is. Looking for alternatives. Scipy has some advantages
 def convertimg(tempdata):
   tempdata=tempdata+abs(np.amin(tempdata))
   tempmax=np.amax(tempdata)
@@ -150,6 +151,7 @@ def convertimg(tempdata):
 #   returnable=tempdata.filter(ImageFilter.MedianFilter(size=kern))
 #   return np.array(returnable)
 
+#Mode Smoothing of image data with input data, kernel
 def modeblur(tempdata,kern):
   tempdata=convertimg(tempdata)
   returnable=tempdata.filter(ImageFilter.ModeFilter(size=kern))
